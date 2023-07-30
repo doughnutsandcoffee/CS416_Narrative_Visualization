@@ -152,7 +152,7 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
         .attr("transform", "rotate(-90)")
         .attr("x", -height / 2)
         .attr("y", -margin.left + 15)
-        .text("School enrollment, primary (gross), gender parity index (GPI)")
+        .text("School enrollment, secondary (gross), gender parity index (GPI)")
 
     //Right side - additional y-axis labels
     svg.append("text")
