@@ -259,7 +259,7 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
     x.domain(d3.extent(selectedData, function(d) { return d.GovtExpEd; }));
     svg.select(".x_axis")
         .transition()
-        .duration(3000)
+        .duration(2900)
         .style("visibility", "visible")
         .call(d3.axisBottom(x))
 
