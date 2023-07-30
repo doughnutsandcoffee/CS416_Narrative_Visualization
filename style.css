@@ -1,0 +1,118 @@
+/*Scences*/
+#Scenes h2 {
+  display: inline;
+  margin: 0px 10px;
+}
+
+#Scenes p {
+  margin: 0px 10px;
+}
+
+.range_button {
+    color: #000000;
+    background-color: #FFFFFF;
+    border: 2px solid #4529e1; /*Original: #078a12*/
+    border-radius: 10px;
+    display: inline-block;
+    margin: 5px 2px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+.range_button:hover {
+    color: #FFFFFF;
+    background-color: #5b40f5/*Original:#0ecc83*/
+}
+
+.range_button:active {
+  color: #FFFFFF;
+  background-color: #5b40f5; /*Original:#0ecc83*/
+}
+
+/*Filters*/
+#Filters {
+  display: absolute; /*flex for stacked or absolute for in line*/
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#Filters p {
+  margin: 0px 10px;
+}
+
+#Filters label {
+  display: inline-block;
+}
+
+#Filters input[type="checkbox"] {
+  margin-right: 0px;
+}
+
+/**/
+.dot {
+  cursor: pointer;
+}
+
+/*Chart*/
+#Chart h2,p {
+  margin:0px 10px;
+}
+.parity_label {
+  font-size: 12px;
+}
+
+/*Tooltip*/
+.tooltip {
+    position: absolute;
+    text-align: left;
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    font: 12px sans-serif;
+    background: #ffe599;
+    opacity: 0.8;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+/*Legend*/
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+.legend-color {
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+}
+
+
+/*Annotation ... STYLING DOESN'T WORK*/
+/*
+.annotation-group .connector line,
+.annotation-group .connector path {
+  stroke: #e71d94;
+}
+
+.annotation-group .connector path {
+  fill: #e71d94;
+}
+
+.annotation-group .note-title {
+  fill: #444444;
+}
+
+.annotation-group .note-label {
+  fill: #5b5b5b;
+}
+*/

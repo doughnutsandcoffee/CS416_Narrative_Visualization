@@ -1,0 +1,79 @@
+<!--Date: 7/29/2023-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrative Visualization: School Enrollment vs. Government Education Spending</title>
+
+    <!--d3.js and visualization file-->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+    <script src="enrollment_tertiary.js"></script>
+    
+    <!--css-->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body onload="main()">
+    <h1>School Enrollment vs. Government Education Spending</h1>
+        <div id="Visualizations">
+
+            <div id="Scenes"> <!--replaced Charts-->
+                <h2>Scenes</h2>
+                <a href="enrollment_primary.html" class="range_button">1. Primary Enrollment</a>
+                <a href="enrollment_secondary.html" class="range_button">2. Secondary Enrollment</a> 
+                <a href="enrollment_tertiary.html" class="range_button">3. Tertiary Enrollment</a>
+                <p>Click to change the dependent (y) variable of the interactive visualization.</p>
+                <br>
+
+                <div id="Filters">
+                    <h2>Filters</h2>
+                    <label for="incomeCheckbox"> <input type="checkbox" id="incomeCheckbox" checked> Color by Income</label>
+                    <label for="regionCheckbox"> <input type="checkbox" id="regionCheckbox" unchecked> Color by Region</label>
+                    <p>Click to change the color of the dots by Income or Region.</p>
+                    <p>A corresponding legend will be displayed.</p>
+                </div>
+                <br>
+
+                <div id="Legend">
+
+                </div>
+
+                <div id="Chart">
+                    <h2>Chart</h2>
+                    <p>Hover over dots to display tooltip.</p>
+                    <p>Click dots once to highlight all dots that make up that group.</p>
+                    <p>Click dots twice to reset the higlight.</p>
+                </div> 
+                <br>
+
+            </div>
+            <div id="AboutData">
+                <h3>About the Data</h3>
+                <b>School enrollment, gender parity index (GPI)</b> - refers to a measure that assesses the gender balance in primary education enrollment.
+                    <ul>
+                        <li><b>GPI</b> for enrollment is an important indicator of gender equality in education.</li>
+                        <li><b>GPI</b> helps identify disparities and gaps in access to education between genders.</li>
+                        <li>Monitoring <b>GPI</b> allows policymakers and educators to track progress towards achieving gender equality in education enrollment.</li>
+                    </ul>
+
+                <b>How is GPI calculated?</b>
+                    <ul>
+                        <li><b>GPI</b> is calculated by comparing the number of <span style="color: #e06666">girls</span> to <span style="color: #0b5394">boys</span> enrolled at the given education level in both public and private schools.</li>
+                        <li><b>Gender parity index (GPI)</b> is a ratio that indicates parity between <span style="color: #e06666">girls</span> and <span style="color: #0b5394">boys</span> in terms of enrollment.</li>
+                        <ul>
+                            <li><b>GPI</b> = 1 indicates perfect gender parity, meaning an equal number of <span style="color: #e06666">girls</span> and <span style="color: #0b5394">boys</span> are enrolled. </li>
+                            <li><b>GPI</b> > 1 indicates a higher enrollment of <span style="color: #e06666">girls</span> compared to <span style="color: #0b5394">boys</span>.</li>
+                            <li><b>GPI</b> < 1 indicates a higher enrollment of <span style="color: #0b5394">boys</span> compared to <span style="color: #e06666">girls</span>.</li>
+                        </ul>
+                    </ul>
+
+                <p><b>Sources</b>: <a href="https://databank.worldbank.org/metadataglossary/gender-statistics/series/SE.ENR.PRSC.FM.ZS">World Bank DataBank - School enrollment, primary and secondary (gross), gender parity index (GPI)</a></p>
+                <p><b>Note</b>: All indicators are based on 2020.</p>
+            </div>
+        </div>
+</body>
+
+</html>
