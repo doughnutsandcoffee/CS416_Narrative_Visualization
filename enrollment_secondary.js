@@ -139,10 +139,12 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
 
     //Y-axis and label
     const y = d3.scaleLinear()
-        .domain(d3.extent(selectedData, function(d) { return d.EnrollmentSecondary; }))
+        .domain([0, 0]) //added for transition
         .range([height, 0])
     svg.append("g")
+        .attr("class", "y_axis") //added for transition
         .attr("transform", "translate(0,0)")
+        .style("visibility", "hidden")
         .call(d3.axisLeft(y));
 
     svg.append("text")
@@ -260,6 +262,14 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
         .duration(3000)
         .style("visibility", "visible")
         .call(d3.axisBottom(x))
+
+    //Transition - new y axis
+    y.domain(d3.extent(selectedData, function(d) { return d.EnrollmentSecondary; }));
+    svg.select(".y_axis")
+        .transition()
+        .duration(4900)
+        .style("visibility", "visible")
+        .call(d3.axisLeft(y))
 
     //Highlight dots
     dots.transition()
