@@ -267,7 +267,7 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
     y.domain(d3.extent(selectedData, function(d) { return d.EnrollmentTertiary; }));
     svg.select(".y_axis")
         .transition()
-        .duration(4900)
+        .duration(3500)
         .style("visibility", "visible")
         .call(d3.axisLeft(y))
 
