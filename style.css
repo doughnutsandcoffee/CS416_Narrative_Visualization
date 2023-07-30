@@ -57,7 +57,7 @@
 }
 
 /*Chart*/
-#Chart h2,p {
+#Chart p {
   margin:0px 10px;
 }
 .parity_label {
@@ -96,23 +96,3 @@
     margin-right: 5px;
 }
 
-
-/*Annotation ... STYLING DOESN'T WORK*/
-/*
-.annotation-group .connector line,
-.annotation-group .connector path {
-  stroke: #e71d94;
-}
-
-.annotation-group .connector path {
-  fill: #e71d94;
-}
-
-.annotation-group .note-title {
-  fill: #444444;
-}
-
-.annotation-group .note-label {
-  fill: #5b5b5b;
-}
-*/
