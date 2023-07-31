@@ -11,7 +11,7 @@
 .range_button {
     color: #000000;
     background-color: #FFFFFF;
-    border: 2px solid #4529e1; /*Original: #078a12*/
+    border: 2px solid #5b40f5;
     border-radius: 10px;
     display: inline-block;
     margin: 5px 2px;
@@ -24,12 +24,12 @@
   
 .range_button:hover {
     color: #FFFFFF;
-    background-color: #5b40f5/*Original:#0ecc83*/
+    background-color: #5b40f5;
 }
 
 .range_button:active {
   color: #FFFFFF;
-  background-color: #5b40f5; /*Original:#0ecc83*/
+  background-color: #5b40f5; 
 }
 
 /*Filters*/
@@ -96,3 +96,6 @@
     margin-right: 5px;
 }
 
+.annotation-group {
+  pointer-events: none;
+}

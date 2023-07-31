@@ -17,22 +17,22 @@
 </head>
 
 <body onload="main()">
-    <h1>School Enrollment vs. Government Education Spending</h1>
+    <h1>Gender Parity in Enrollment vs. Government Expenditure on Education</h1>
         <div id="Visualizations">
 
             <div id="Scenes"> <!--replaced Charts-->
                 <h2>Scenes</h2>
-                <a href="enrollment_primary.html" class="range_button">1. Primary Enrollment</a>
-                <a href="enrollment_secondary.html" class="range_button">2. Secondary Enrollment</a> 
-                <a href="enrollment_tertiary.html" class="range_button">3. Tertiary Enrollment</a>
+                <a href="enrollment_primary.html" class="range_button" onclick="highlightButton(this)">1. Primary Enrollment</a>
+                <a href="enrollment_secondary.html" class="range_button" onclick="highlightButton(this)">2. Secondary Enrollment</a> 
+                <a href="enrollment_tertiary.html" class="range_button" onclick="highlightButton(this)">3. Tertiary Enrollment</a>
                 <p>Click to change the dependent (y) variable of the interactive visualization.</p>
                 <br>
 
                 <div id="Filters">
                     <h2>Filters</h2>
-                    <label for="incomeCheckbox"> <input type="checkbox" id="incomeCheckbox" checked> Color by Income</label>
-                    <label for="regionCheckbox"> <input type="checkbox" id="regionCheckbox" unchecked> Color by Region</label>
-                    <p>Click to change the color of the dots by Income or Region.</p>
+                    <label for="incomeCheckbox"> <input type="checkbox" id="incomeCheckbox" checked> Income</label>
+                    <label for="regionCheckbox"> <input type="checkbox" id="regionCheckbox" unchecked> Region</label>
+                    <p>Click to group the data by Income or Region.</p>
                     <p>A corresponding legend will be displayed.</p>
                 </div>
                 <br>
@@ -43,14 +43,16 @@
 
                 <div id="Chart">
                     <h2>Chart</h2>
-                    <p>Hover over dots to display tooltip.</p>
-                    <p>Click dots once to highlight all dots that make up that group.</p>
-                    <p>Click dots twice to reset the higlight.</p>
+                    <p>Hover to display tooltip.</p>
+                    <p>Click once to highlight all dots that make up that group.</p>
+                    <p>Click twice to reset the higlight.</p>
+                    <br>
                 </div> 
-                <br>
+                
 
             </div>
             <div id="AboutData">
+                
                 <h3>About the Data</h3>
                 <b>School enrollment, gender parity index (GPI)</b> - refers to a measure that assesses the gender balance in primary education enrollment.
                     <ul>

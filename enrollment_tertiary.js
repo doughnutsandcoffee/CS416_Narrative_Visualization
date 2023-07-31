@@ -2,7 +2,7 @@
 function main() {
     
     //SVG
-    const margin = { top: 10, right: 30, bottom: 40, left: 50 },
+    const margin = { top: 40, right: 50, bottom: 40, left: 50 },
     width = 820 - margin.left - margin.right,
     height = 520 - margin.top - margin.bottom;
     
@@ -33,13 +33,13 @@ function main() {
 
     const Regioncolor = d3.scaleOrdinal()
     .domain(regions)
-    .range(["#F44336", "#F5B041", "#5BBD61", "#b4a7d6", "#EA9999", "#2775FC", "#AED6F1"])
-            // red       orange       green      purple     pink       blue     light blue
+    .range(["#F44336", "#dc8120", "#51aa57", "#875ab2 ", "#d28989", "#2775FC", "#f1c232"])
+            // red       orange       green      purple     pink       blue     yellow
 
     //Legend
     const legend = svg.append("g")
         .attr("class", "legend")
-        .attr("transform", `translate(${width - margin.right - 150}, 0)`)
+        .attr("transform", `translate(${width - margin.right - 100}, 0)`)
         .style("opacity", 0.8);
 
     //Legend for Income
@@ -118,6 +118,15 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
             };
         }
     }).filter(function(d) { return d != undefined; });
+
+    //Chart title
+    svg.append("text")
+        .attr("class", "chart_title")
+        .attr("text-anchor", "middle")
+        .attr("x", width / 2)
+        .attr("y", -20)
+        .text("Tertiary Enrollment (GPI) vs. Government Expenditure on Education")
+        .style("font-weight", "bold");
 
     //X-axis and label
     const x = d3.scaleLinear()
@@ -214,7 +223,7 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
                     "<br><b>Region</b>: " + d.Region +
                     "<br><b>Income</b>: " + d.Income +
                     "<br><b>Government expenditure on education (% of government expenditure)</b>: " + d.GovtExpEd +
-                    "<br><b>School enrollment, tertiary (gross), gender parity index (GPI)</b>: " + d.EnrollmentTertiary)
+                    "<br><b>School enrollment, Tertiary (gross), gender parity index (GPI)</b>: " + d.EnrollmentTertiary)
                 .style("left", (d3.event.pageX + 10) + "px")
                 .style("top", (d3.event.pageY - 10) + "px");
         })
@@ -370,7 +379,7 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
     //Annotation
     const annotations = [{
         note: {
-        label: `\n#${y_rank} out of ${y_count} in Primary Enrollment (GPI), #${x_rank} out of ${x_count} in Government expenditure on education.`,
+        label: `\n#${y_rank} out of ${y_count} in tertiary enrollment (GPI), #${x_rank} out of ${x_count} in Government expenditure on education.`,
         title: "United States",
         wrap: 150,
         align: "left",

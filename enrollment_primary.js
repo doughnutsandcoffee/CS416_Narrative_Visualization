@@ -2,7 +2,7 @@
 function main() {
     
     //SVG
-    const margin = { top: 10, right: 30, bottom: 40, left: 50 },
+    const margin = { top: 40, right: 50, bottom: 40, left: 50 },
     width = 820 - margin.left - margin.right,
     height = 520 - margin.top - margin.bottom;
     
@@ -33,13 +33,13 @@ function main() {
 
     const Regioncolor = d3.scaleOrdinal()
     .domain(regions)
-    .range(["#F44336", "#F5B041", "#5BBD61", "#b4a7d6", "#EA9999", "#2775FC", "#AED6F1"])
-            // red       orange       green      purple     pink       blue     light blue
+    .range(["#F44336", "#dc8120", "#51aa57", "#875ab2 ", "#d28989", "#2775FC", "#f1c232"])
+            // red       orange       green      purple     pink       blue     yellow
 
     //Legend
     const legend = svg.append("g")
         .attr("class", "legend")
-        .attr("transform", `translate(${width - margin.right - 150}, 0)`)
+        .attr("transform", `translate(${width - margin.right - 80}, 0)`)
         .style("opacity", 0.8);
 
     //Legend for Income
@@ -102,6 +102,7 @@ function main() {
         .style("stroke", "black")
         .style("stroke-width", 2);
 
+
 //Get data: x and y axis use d3.extent() to set domain automatically, why inside d3.csv()
 d3.csv("all_years_pivot_edit.csv").then(function(data) {
     
@@ -117,6 +118,15 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
             };
         }
     }).filter(function(d) { return d != undefined; });
+
+    //Chart title
+    svg.append("text")
+        .attr("class", "chart_title")
+        .attr("text-anchor", "middle")
+        .attr("x", width / 2)
+        .attr("y", -20)
+        .text("Primary Enrollment (GPI) vs. Government Expenditure on Education")
+        .style("font-weight", "bold");
 
     //X-axis and label
     const x = d3.scaleLinear()
@@ -152,7 +162,7 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
         .attr("transform", "rotate(-90)")
         .attr("x", -height / 2)
         .attr("y", -margin.left + 15)
-        .text("School enrollment, secondary (gross), gender parity index (GPI)")
+        .text("School enrollment, primary (gross), gender parity index (GPI)")
 
     //Right side - additional y-axis labels
     svg.append("text")
@@ -266,10 +276,9 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
     y.domain(d3.extent(selectedData, function(d) { return d.EnrollmentPrimary; }));
     svg.select(".y_axis")
         .transition()
-        .duration(5500)
+        .duration(4900)
         .style("visibility", "visible")
         .call(d3.axisLeft(y))
-        
 
     //Highlight dots
     dots.transition()
@@ -370,7 +379,7 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
     //Annotation
     const annotations = [{
         note: {
-        label: `\n#${y_rank} out of ${y_count} in Primary Enrollment (GPI), #${x_rank} out of ${x_count} in Government expenditure on education.`,
+        label: `\n#${y_rank} out of ${y_count} in (GPI) and #${x_rank} out of ${x_count} in Government expenditure on education.`,
         title: "United States",
         wrap: 150,
         align: "left",
@@ -396,6 +405,7 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
         .attr("class", "annotation-group")
         .style("font-size", "12px")
         .call(makeAnnotations);
+
 });
 
 }
