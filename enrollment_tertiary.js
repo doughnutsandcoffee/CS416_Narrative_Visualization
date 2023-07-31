@@ -105,7 +105,7 @@ function main() {
 
 //Get data: x and y axis use d3.extent() to set domain automatically, why inside d3.csv()
 d3.csv("all_years_pivot_edit.csv").then(function(data) {
-    
+
     //Select columns and filter out blank data
     let selectedData = data.map(function(d) {
         if (d.Region !== "" && d.Country !== "" && d.Income !== "" && d.GovtExpEd !== "" && d.EnrollmentTertiary !== "") {
@@ -185,21 +185,17 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
 
     //GPI parity - horizontal line and label
     svg.append("line")
-        .attr("x1", 0)
-        .attr("y1", y(1))
-        .attr("x2", width)
-        .attr("y2", y(1))
+        .attr("class", "parity_line")
         .attr("stroke-width", 1)
         .attr("stroke", "black")
         .style("stroke-dasharray", ("3, 3"))
+        .style("visibility", "hidden");
 
     svg.append("text")
         .attr("class", "parity_label")
         .attr("text-anchor", "middle")
-        .attr("x", width / 2)
-        .attr("y", y(1))
-        .text("gender parity, (GPI) = 1")
         .style("fill", "grey")
+        .style("visibility", "hidden");
 
     //Scatter plot + Tooltip + Click to filter by Income|Region  
     const dots = svg.append("g")
@@ -223,7 +219,7 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
                     "<br><b>Region</b>: " + d.Region +
                     "<br><b>Income</b>: " + d.Income +
                     "<br><b>Government expenditure on education (% of government expenditure)</b>: " + d.GovtExpEd +
-                    "<br><b>School enrollment, Tertiary (gross), gender parity index (GPI)</b>: " + d.EnrollmentTertiary)
+                    "<br><b>School enrollment, tertiary (gross), gender parity index (GPI)</b>: " + d.EnrollmentTertiary)
                 .style("left", (d3.event.pageX + 10) + "px")
                 .style("top", (d3.event.pageY - 10) + "px");
         })
@@ -268,7 +264,7 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
     x.domain(d3.extent(selectedData, function(d) { return d.GovtExpEd; }));
     svg.select(".x_axis")
         .transition()
-        .duration(2900)
+        .duration(3000)
         .style("visibility", "visible")
         .call(d3.axisBottom(x))
 
@@ -276,9 +272,24 @@ d3.csv("all_years_pivot_edit.csv").then(function(data) {
     y.domain(d3.extent(selectedData, function(d) { return d.EnrollmentTertiary; }));
     svg.select(".y_axis")
         .transition()
-        .duration(3000)
+        .duration(4900)
         .style("visibility", "visible")
         .call(d3.axisLeft(y))
+        .on("end", function() {
+            //GPI parity - horizontal line and label
+            svg.select(".parity_line")
+                .style("visibility", "visible")
+                .attr("x1", 0)
+                .attr("y1", y(1))
+                .attr("x2", width)
+                .attr("y2", y(1));
+
+            svg.select(".parity_label")
+                .style("visibility", "visible")
+                .attr("x", width / 2)
+                .attr("y", y(1))
+                .text("gender parity, (GPI) = 1");
+        });
 
     //Highlight dots
     dots.transition()

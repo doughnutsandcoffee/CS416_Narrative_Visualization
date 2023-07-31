@@ -103,189 +103,200 @@ function main() {
         .style("stroke-width", 2);
 
 
-//Get data: x and y axis use d3.extent() to set domain automatically, why inside d3.csv()
-d3.csv("all_years_pivot_edit.csv").then(function(data) {
+        d3.csv("all_years_pivot_edit.csv").then(function(data) {
     
-    //Select columns and filter out blank data
-    let selectedData = data.map(function(d) {
-        if (d.Region !== "" && d.Country !== "" && d.Income !== "" && d.GovtExpEd !== "" && d.EnrollmentSecondary !== "") {
-            return {
-                Region: d.Region,
-                Country: d.Country,
-                Income: d.Income,
-                GovtExpEd: +d.GovtExpEd,
-                EnrollmentSecondary: +d.EnrollmentSecondary,
-            };
-        }
-    }).filter(function(d) { return d != undefined; });
-
-    //Chart title
-    svg.append("text")
-        .attr("class", "chart_title")
-        .attr("text-anchor", "middle")
-        .attr("x", width / 2)
-        .attr("y", -20)
-        .text("Secondary Enrollment (GPI) vs. Government Expenditure on Education")
-        .style("font-weight", "bold");
-
-    //X-axis and label
-    const x = d3.scaleLinear()
-        .domain([0, 0]) //added for transition 
-        .range([0, width])
-    svg.append("g")
-        .attr("class", "x_axis") //added for transition 
-        .attr("transform", "translate(0," + height + ")")
-        .style("visibility", "hidden")
-        .call(d3.axisBottom(x));
-
-    svg.append("text")
-        .attr("class", "x_label")
-        .attr("text-anchor", "middle")
-        .attr("x", width / 2)
-        .attr("y", height + margin.top + 20)
-        .text("Government expenditure on education (% of government expenditure)")
-        .style("visibility", "visible")
-
-    //Y-axis and label
-    const y = d3.scaleLinear()
-        .domain([0, 0]) //added for transition
-        .range([height, 0])
-    svg.append("g")
-        .attr("class", "y_axis") //added for transition
-        .attr("transform", "translate(0,0)")
-        .style("visibility", "hidden")
-        .call(d3.axisLeft(y));
-
-    svg.append("text")
-        .attr("class", "y_label")
-        .attr("text-anchor", "middle")
-        .attr("transform", "rotate(-90)")
-        .attr("x", -height / 2)
-        .attr("y", -margin.left + 15)
-        .text("School enrollment, secondary (gross), gender parity index (GPI)")
-
-    //Right side - additional y-axis labels
-    svg.append("text")
-        .attr("class", "y_label2")
-        .attr("text-anchor", "middle")
-        .attr("transform", "rotate(-90)")
-        .attr("x", -height / 4)
-        .attr("y", width + margin.right / 2)
-        .text("GPI > 1 more girls")
-        .style("fill", "pink")
-
-    svg.append("text")
-        .attr("class", "y_label2")
-        .attr("text-anchor", "middle")
-        .attr("transform", "rotate(-90)")
-        .attr("x", -height/1.35)
-        .attr("y", width + margin.right / 2)
-        .text("GPI < 1 more boys")
-        .style("fill", "steelblue")
-
-    //GPI parity - horizontal line and label
-    svg.append("line")
-        .attr("x1", 0)
-        .attr("y1", y(1))
-        .attr("x2", width)
-        .attr("y2", y(1))
-        .attr("stroke-width", 1)
-        .attr("stroke", "black")
-        .style("stroke-dasharray", ("3, 3"))
-
-    svg.append("text")
-        .attr("class", "parity_label")
-        .attr("text-anchor", "middle")
-        .attr("x", width / 2)
-        .attr("y", y(1))
-        .text("gender parity, (GPI) = 1")
-        .style("fill", "grey")
-
-    //Scatter plot + Tooltip + Click to filter by Income|Region  
-    const dots = svg.append("g")
-        .selectAll("dot")
-        .data(selectedData)
-        .enter()
-        .append("circle")
-        .attr("class", "dot")
-        .attr("cx", 0) // Set initial x position to 0 --> added for transition from 0,0
-        .attr("cy", height) // Set initial y position to height --> added for transition from 0,0
-        .attr("r", 4.25)
-        .style("fill", function(d) { return Incomecolor(d.Income); })
-        .style("opacity", 0.5)
-        .attr("stroke", "black")
-        //Tootlip
-        .on("mouseover", function(d) {
-            tooltip.transition()
-                .duration(200)
-                .style("visibility", "visible");
-            tooltip.html("<b>Country</b>: " + d.Country +
-                    "<br><b>Region</b>: " + d.Region +
-                    "<br><b>Income</b>: " + d.Income +
-                    "<br><b>Government expenditure on education (% of government expenditure)</b>: " + d.GovtExpEd +
-                    "<br><b>School enrollment, secondary (gross), gender parity index (GPI)</b>: " + d.EnrollmentSecondary)
-                .style("left", (d3.event.pageX + 10) + "px")
-                .style("top", (d3.event.pageY - 10) + "px");
-        })
-        .on("mouseout", function(d) {
-            tooltip.transition()
-                .duration(500)
+            //Select columns and filter out blank data
+            let selectedData = data.map(function(d) {
+                if (d.Region !== "" && d.Country !== "" && d.Income !== "" && d.GovtExpEd !== "" && d.EnrollmentSecondary !== "") {
+                    return {
+                        Region: d.Region,
+                        Country: d.Country,
+                        Income: d.Income,
+                        GovtExpEd: +d.GovtExpEd,
+                        EnrollmentSecondary: +d.EnrollmentSecondary,
+                    };
+                }
+            }).filter(function(d) { return d != undefined; });
+        
+            //Chart title
+            svg.append("text")
+                .attr("class", "chart_title")
+                .attr("text-anchor", "middle")
+                .attr("x", width / 2)
+                .attr("y", -20)
+                .text("Secondary Enrollment (GPI) vs. Government Expenditure on Education")
+                .style("font-weight", "bold");
+        
+            //X-axis and label
+            const x = d3.scaleLinear()
+                .domain([0, 0]) //added for transition 
+                .range([0, width])
+            svg.append("g")
+                .attr("class", "x_axis") //added for transition 
+                .attr("transform", "translate(0," + height + ")")
+                .style("visibility", "hidden")
+                .call(d3.axisBottom(x));
+        
+            svg.append("text")
+                .attr("class", "x_label")
+                .attr("text-anchor", "middle")
+                .attr("x", width / 2)
+                .attr("y", height + margin.top + 20)
+                .text("Government expenditure on education (% of government expenditure)")
+                .style("visibility", "visible")
+        
+            //Y-axis and label
+            const y = d3.scaleLinear()
+                .domain([0, 0]) //added for transition
+                .range([height, 0])
+            svg.append("g")
+                .attr("class", "y_axis") //added for transition
+                .attr("transform", "translate(0,0)")
+                .style("visibility", "hidden")
+                .call(d3.axisLeft(y));
+        
+            svg.append("text")
+                .attr("class", "y_label")
+                .attr("text-anchor", "middle")
+                .attr("transform", "rotate(-90)")
+                .attr("x", -height / 2)
+                .attr("y", -margin.left + 15)
+                .text("School enrollment, secondary (gross), gender parity index (GPI)")
+        
+            //Right side - additional y-axis labels
+            svg.append("text")
+                .attr("class", "y_label2")
+                .attr("text-anchor", "middle")
+                .attr("transform", "rotate(-90)")
+                .attr("x", -height / 4)
+                .attr("y", width + margin.right / 2)
+                .text("GPI > 1 more girls")
+                .style("fill", "pink")
+        
+            svg.append("text")
+                .attr("class", "y_label2")
+                .attr("text-anchor", "middle")
+                .attr("transform", "rotate(-90)")
+                .attr("x", -height/1.35)
+                .attr("y", width + margin.right / 2)
+                .text("GPI < 1 more boys")
+                .style("fill", "steelblue")
+        
+            //GPI parity - horizontal line and label
+            svg.append("line")
+                .attr("class", "parity_line")
+                .attr("stroke-width", 1)
+                .attr("stroke", "black")
+                .style("stroke-dasharray", ("3, 3"))
                 .style("visibility", "hidden");
-        })
-        //Filter
-        .on("click", function(d) {
-            //Filter on region -> "click" -> highlight opacity of region group & reset opacity all other dots
-            if (regionCheckbox.property("checked")) {
-                const filteredDots = dots.filter(function(dotData) {
-                    return dotData.Region === d.Region;
+        
+            svg.append("text")
+                .attr("class", "parity_label")
+                .attr("text-anchor", "middle")
+                .style("fill", "grey")
+                .style("visibility", "hidden");
+        
+            //Scatter plot + Tooltip + Click to filter by Income|Region  
+            const dots = svg.append("g")
+                .selectAll("dot")
+                .data(selectedData)
+                .enter()
+                .append("circle")
+                .attr("class", "dot")
+                .attr("cx", 0) // Set initial x position to 0 --> added for transition from 0,0
+                .attr("cy", height) // Set initial y position to height --> added for transition from 0,0
+                .attr("r", 4.25)
+                .style("fill", function(d) { return Incomecolor(d.Income); })
+                .style("opacity", 0.5)
+                .attr("stroke", "black")
+                //Tootlip
+                .on("mouseover", function(d) {
+                    tooltip.transition()
+                        .duration(200)
+                        .style("visibility", "visible");
+                    tooltip.html("<b>Country</b>: " + d.Country +
+                            "<br><b>Region</b>: " + d.Region +
+                            "<br><b>Income</b>: " + d.Income +
+                            "<br><b>Government expenditure on education (% of government expenditure)</b>: " + d.GovtExpEd +
+                            "<br><b>School enrollment, secondary (gross), gender parity index (GPI)</b>: " + d.EnrollmentSecondary)
+                        .style("left", (d3.event.pageX + 10) + "px")
+                        .style("top", (d3.event.pageY - 10) + "px");
+                })
+                .on("mouseout", function(d) {
+                    tooltip.transition()
+                        .duration(500)
+                        .style("visibility", "hidden");
+                })
+                //Filter
+                .on("click", function(d) {
+                    //Filter on region -> "click" -> highlight opacity of region group & reset opacity all other dots
+                    if (regionCheckbox.property("checked")) {
+                        const filteredDots = dots.filter(function(dotData) {
+                            return dotData.Region === d.Region;
+                        });
+                        dots.style("opacity", 0.5);
+                        filteredDots.style("opacity", 1);
+                        regionLegend.selectAll("circle")
+                            .style("opacity", 0.5)
+                            .filter(function(legendData) {
+                                return legendData === d.Region;
+                            })
+                            .style("opacity", 1);
+                    
+                    //Filter on income -> "click - dot" -> highlight opacity of income group & reset opacity all other dots
+                    } else if (incomeCheckbox.property("checked")) {
+                        const filteredDots = dots.filter(function(dotData) {
+                            return dotData.Income === d.Income;
+                        });
+                        dots.style("opacity", 0.5);
+                        filteredDots.style("opacity", 1);
+                        incomeLegend.selectAll("circle")
+                            .style("opacity", 0.5)
+                            .filter(function(legendData) {
+                                return legendData === d.Income;
+                            })
+                            .style("opacity", 1);
+                    }
+                })
+        
+            //Transition - new x axis
+            x.domain(d3.extent(selectedData, function(d) { return d.GovtExpEd; }));
+            svg.select(".x_axis")
+                .transition()
+                .duration(3000)
+                .style("visibility", "visible")
+                .call(d3.axisBottom(x))
+        
+            //Transition - new y axis
+            y.domain(d3.extent(selectedData, function(d) { return d.EnrollmentSecondary; }));
+            svg.select(".y_axis")
+                .transition()
+                .duration(4900)
+                .style("visibility", "visible")
+                .call(d3.axisLeft(y))
+                .on("end", function() {
+                    //GPI parity - horizontal line and label
+                    svg.select(".parity_line")
+                        .style("visibility", "visible")
+                        .attr("x1", 0)
+                        .attr("y1", y(1))
+                        .attr("x2", width)
+                        .attr("y2", y(1));
+        
+                    svg.select(".parity_label")
+                        .style("visibility", "visible")
+                        .attr("x", width / 2)
+                        .attr("y", y(1))
+                        .text("gender parity, (GPI) = 1");
                 });
-                dots.style("opacity", 0.5);
-                filteredDots.style("opacity", 1);
-                regionLegend.selectAll("circle")
-                    .style("opacity", 0.5)
-                    .filter(function(legendData) {
-                        return legendData === d.Region;
-                    })
-                    .style("opacity", 1);
-            
-            //Filter on income -> "click - dot" -> highlight opacity of income group & reset opacity all other dots
-            } else if (incomeCheckbox.property("checked")) {
-                const filteredDots = dots.filter(function(dotData) {
-                    return dotData.Income === d.Income;
-                });
-                dots.style("opacity", 0.5);
-                filteredDots.style("opacity", 1);
-                incomeLegend.selectAll("circle")
-                    .style("opacity", 0.5)
-                    .filter(function(legendData) {
-                        return legendData === d.Income;
-                    })
-                    .style("opacity", 1);
-            }
-        })
+        
+            //Highlight dots
+            dots.transition()
+                .delay(function(d, i) { return i * 3 })
+                .duration(3000)
+                .attr("cx", function(d) { return x(d.GovtExpEd); })
+                .attr("cy", function(d) { return y(d.EnrollmentSecondary); })
 
-    //Transition - new x axis
-    x.domain(d3.extent(selectedData, function(d) { return d.GovtExpEd; }));
-    svg.select(".x_axis")
-        .transition()
-        .duration(3000)
-        .style("visibility", "visible")
-        .call(d3.axisBottom(x))
-
-    //Transition - new y axis
-    y.domain(d3.extent(selectedData, function(d) { return d.EnrollmentSecondary; }));
-    svg.select(".y_axis")
-        .transition()
-        .duration(4900)
-        .style("visibility", "visible")
-        .call(d3.axisLeft(y))
-
-    //Highlight dots
-    dots.transition()
-        .delay(function(d, i) { return i * 3 })
-        .duration(3000)
-        .attr("cx", function(d) { return x(d.GovtExpEd); })
-        .attr("cy", function(d) { return y(d.EnrollmentSecondary); })
 
     //Event listener on SVG - double click on dot -> reset opacity
     svg.on("dblclick", function() {
